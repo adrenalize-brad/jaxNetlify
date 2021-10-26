@@ -1,5 +1,7 @@
+import React from 'react'
 import './src/styles/global.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { ContextProvider } from './src/components/context';
 
 const onServiceWorkerUpdateReady = () => {
     const answer = window.confirm(
@@ -11,5 +13,12 @@ const onServiceWorkerUpdateReady = () => {
     }
   };
 
+  const wrapRootElement = ({ element }) => {
+    return(
+        <ContextProvider>
+          {element}
+        </ContextProvider>
+      )
+    };
 
-  export { onServiceWorkerUpdateReady };
+  export { wrapRootElement, onServiceWorkerUpdateReady };
