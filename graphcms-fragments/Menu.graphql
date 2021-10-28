@@ -1,0 +1,36 @@
+fragment Menu on Menu {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  name
+  createdBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  updatedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  publishedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  menuCategories {
+    ... on MenuCategory {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+}
