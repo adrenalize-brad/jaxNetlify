@@ -12,6 +12,8 @@ module.exports = {
       options: {
         endpoint: process.env.GATSBY_GRAPHCMS_ENDPOINT,
         token: process.env.GATSBY_GRAPHCMS_TOKEN,
+        buildMarkdownNodes: true,
+        downloadLocalImages: true,
       },
     },
     {
@@ -35,6 +37,7 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
