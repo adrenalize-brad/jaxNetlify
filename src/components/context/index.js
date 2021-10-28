@@ -1,19 +1,7 @@
-import React, { useLayoutEffect, useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
+import { useWindowWidth } from '../../hooks';
 
 const Context = createContext();
-
-const useWindowWidth = () => {
-    const [ width, setWidth ] = useState(0)    
-    useLayoutEffect(() => {
-        const updateWidth = () => {
-            setWidth(window.innerWidth)
-        }
-        window.addEventListener('resize', updateWidth)
-        updateWidth()
-        return () => window.removeEventListener('resize', updateWidth)
-    }, []);
-    return width;
-};
 
 const ContextProvider = ({ children }) => {
 

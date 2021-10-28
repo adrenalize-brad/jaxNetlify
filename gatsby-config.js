@@ -7,6 +7,13 @@ module.exports = {
     keywords: 'Web, App, Application, Software, Development, Design',
   },
   plugins: [
+    {
+      resolve: 'gatsby-source-graphcms',
+      options: {
+        endpoint: process.env.GATSBY_GRAPHCMS_ENDPOINT,
+        token: process.env.GATSBY_GRAPHCMS_TOKEN,
+      },
+    },
     //{
      // resolve: `gatsby-plugin-manifest`,
       //options: {

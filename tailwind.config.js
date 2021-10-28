@@ -32,6 +32,9 @@ module.exports = {
     extend: {
       outline: {
         gray: '2px solid #0F172A',
+      },
+      dropShadow: {
+        'md': '0 0 7px rgba(255, 0, 0, 0.95)',
       }
     },
   },
