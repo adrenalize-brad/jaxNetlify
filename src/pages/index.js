@@ -100,7 +100,10 @@ const Index = () => {
       },
     ];
 
-    let windowHeight = context.browserHeight;
+    let windowHeight;
+    if(context !== undefined){
+      windowHeight = context.browserHeight;
+    } 
   
     const [ displayHeight, setDisplayHeight ] = useState(0)
     const [ displayTop, setDisplayTop ] = useState(0)
