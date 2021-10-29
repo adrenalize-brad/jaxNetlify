@@ -75,7 +75,7 @@ const NavBar = ({ display, menuLinks, socialLinks, logo, logoClick }) => {
 
             <div 
                 id="navbar"
-                className={`flex flex-row justify-center items-center w-full ${display === 'mobile' ? 'absolute bottom-0 left-0 pt-1' : 'mx-5'}`}
+                className={`flex flex-row justify-center items-center w-full ${display === 'mobile' ? 'absolute bottom-0 left-0 pt-1 bg-black' : 'mx-5'}`}
             >
                 { menuLinks.map((link, index) => {
                     return(

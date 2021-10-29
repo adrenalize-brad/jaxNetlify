@@ -43,6 +43,9 @@ const Index = () => {
       setPage('menu');
       window.history.pushState('home','Home','/')
     }
+      setTimeout(function(){
+          window.scrollTo(0, 1);
+      }, 0);
   }, [])
 
   const menuLinks = [
