@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
+import { window } from 'browser-monads';
 
 const useWindowWidth = () => {
     const [ width, setWidth ] = useState(0)    
@@ -26,6 +27,4 @@ const useWindowHeight = () => {
     return height;
 };
 
-const isBrowser = () => typeof window !== "undefined";
-
-export { useWindowHeight, useWindowWidth, isBrowser }
+export { useWindowHeight, useWindowWidth }

@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
+import { useWindowHeight } from "../hooks"
 import { Context } from '../components/context'
 import { PageWrapper } from '../components/layout'
+import { window, document } from 'browser-monads';
 import { NavBar } from '../components/nav'
 import { IoFastFoodSharp, IoCalendar, IoCartSharp, IoStar, IoChatboxEllipses } from 'react-icons/io5'
 import { FaFacebook, FaInstagram, FaTripadvisor } from 'react-icons/fa'
@@ -36,6 +38,12 @@ const Index = () => {
 
   const [ page, setPage ] = useState('home');
 
+  useEffect(()=> {
+    if(window.location.hash === '#menu'){
+      setPage('menu');
+      window.history.pushState('home','Home','/')
+    }
+  }, [])
 
   const menuLinks = [
       {
@@ -88,9 +96,23 @@ const Index = () => {
       },
     ];
 
+    let windowHeight = useWindowHeight()
   
     const [ displayHeight, setDisplayHeight ] = useState(0)
     const [ displayTop, setDisplayTop ] = useState(0)
+
+    useEffect(() => {
+      if(document.getElementById("mobileHeader") !== null){
+        setDisplayHeight(
+            windowHeight -
+            document.getElementById("mobileHeader").offsetHeight - 
+            document.getElementById("navbar").offsetHeight
+        );
+        setDisplayTop(
+            document.getElementById('mobileHeader').offsetHeight
+        );
+    };
+    }, [ windowHeight ])
 
   return(
 
@@ -99,9 +121,9 @@ const Index = () => {
       bgColor={pageData.siteID.backgroundColor}
     >
       <NavBar
-        display='mobile'
+        display={context.display}
         logo={pageData.siteID.logo}
-        logoClick={null}
+        logoClick={() => setPage('home')}
         menuLinks={menuLinks}
         socialLinks={socialLinks}
       />

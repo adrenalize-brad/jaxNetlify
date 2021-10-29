@@ -1,13 +1,27 @@
 import React, { useState, createContext, useEffect } from 'react';
-import { useWindowWidth, useWindowHeight, isBrowser } from '../../hooks';
+import { useWindowWidth } from '../../hooks';
 
 const Context = createContext();
 
 const ContextProvider = ({ children }) => {
 
+    const [ display, setDisplay ] = useState('mobile');
+
+    let browserWidth = useWindowWidth();
+    
+    useEffect(() => {
+        if(browserWidth < 600){
+            setDisplay('mobile')
+        }
+        else{
+            setDisplay('desktop')
+        }
+    }, [ browserWidth ]);
+    
+
     return (
 
-        <Context.Provider>
+        <Context.Provider value={{ display }}>
         	{children}
         </Context.Provider>
     )

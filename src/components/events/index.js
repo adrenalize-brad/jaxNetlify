@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { FaRegClock, FaMusic } from 'react-icons/fa'
+import { document } from 'browser-monads';
 
 const Events = () => {
 
