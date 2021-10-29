@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { window, document } from 'browser-monads';
 
 const Menu = () => {
 

@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import { useWindowWidth } from '../../hooks';
+import { useWindowWidth, useWindowHeight, isBrowser } from '../../hooks';
 
 const Context = createContext();
 
@@ -8,6 +8,13 @@ const ContextProvider = ({ children }) => {
     const [ display, setDisplay ] = useState('mobile');
 
     let browserWidth = useWindowWidth();
+    let browserHeight = useWindowHeight();
+    
+    let browserWindow;
+    if(!isBrowser){
+        browserWindow = window;
+    }
+    
     
     useEffect(() => {
         if(browserWidth < 600){
@@ -21,7 +28,7 @@ const ContextProvider = ({ children }) => {
 
     return (
 
-        <Context.Provider value={{ display }}>
+        <Context.Provider value={{ display, browserHeight, browserWidth, browserWindow }}>
         	{children}
         </Context.Provider>
     )

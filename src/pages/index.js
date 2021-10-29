@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
-import { useWindowHeight } from "../hooks"
 import { Context } from '../components/context'
 import { PageWrapper } from '../components/layout'
-import { window, document } from 'browser-monads';
 import { NavBar } from '../components/nav'
 import { IoFastFoodSharp, IoCalendar, IoCartSharp, IoStar, IoChatboxEllipses } from 'react-icons/io5'
 import { FaFacebook, FaInstagram, FaTripadvisor } from 'react-icons/fa'
@@ -17,6 +15,8 @@ import Contact from '../components/contact'
 const Index = () => {
 
   const context = useContext(Context);
+
+  let browserWindow = context.browserWindow;
 
   const pageData = useStaticQuery(graphql`
     query {
@@ -39,8 +39,10 @@ const Index = () => {
   const [ page, setPage ] = useState('home');
 
   useEffect(()=> {
-    if(window.location.hash === '#menu'){
-      setPage('menu');
+    if(browserWindow !== undefined){
+      if(browserWindow.location.hash === '#menu'){
+        setPage('menu');
+      }
     }
   }, [])
 
@@ -95,7 +97,8 @@ const Index = () => {
       },
     ];
 
-    let windowHeight = useWindowHeight()
+    let windowHeight = context.browserHeight;
+    console.log(windowHeight)
   
     const [ displayHeight, setDisplayHeight ] = useState(0)
     const [ displayTop, setDisplayTop ] = useState(0)
