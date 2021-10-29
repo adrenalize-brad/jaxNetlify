@@ -128,7 +128,7 @@ const Index = () => {
       bgColor={pageData.siteID.backgroundColor}
     >
       <NavBar
-        display={context.display}
+        display={context !== undefined? context.display : null}
         logo={pageData.siteID.logo}
         logoClick={null}
         menuLinks={menuLinks}
