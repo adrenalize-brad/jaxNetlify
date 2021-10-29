@@ -41,7 +41,6 @@ const Index = () => {
   useEffect(()=> {
     if(window.location.hash === '#menu'){
       setPage('menu');
-      window.history.pushState(`Jax Bucerias`, `Jax Bucerias Menu`, `/`);
     }
   }, [])
 
