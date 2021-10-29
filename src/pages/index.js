@@ -16,11 +16,6 @@ const Index = () => {
 
   const context = useContext(Context);
 
-  let browserWindow;
-  if(context !== undefined){
-    browserWindow = context.browserWindow;
-  };
-
   const pageData = useStaticQuery(graphql`
     query {
       siteID: graphCmsSiteId {
@@ -41,13 +36,6 @@ const Index = () => {
 
   const [ page, setPage ] = useState('home');
 
-  useEffect(()=> {
-    if(browserWindow !== undefined){
-      if(browserWindow.location.hash === '#menu'){
-        setPage('menu');
-      }
-    }
-  }, [])
 
   const menuLinks = [
       {
@@ -100,26 +88,9 @@ const Index = () => {
       },
     ];
 
-    let windowHeight;
-    if(context !== undefined){
-      windowHeight = context.browserHeight;
-    } 
   
     const [ displayHeight, setDisplayHeight ] = useState(0)
     const [ displayTop, setDisplayTop ] = useState(0)
-
-    useEffect(() => {
-      if(document.getElementById("mobileHeader") !== null){
-        setDisplayHeight(
-            windowHeight -
-            document.getElementById("mobileHeader").offsetHeight - 
-            document.getElementById("navbar").offsetHeight
-        );
-        setDisplayTop(
-            document.getElementById('mobileHeader').offsetHeight
-        );
-    };
-    }, [ windowHeight ])
 
   return(
 
@@ -128,7 +99,7 @@ const Index = () => {
       bgColor={pageData.siteID.backgroundColor}
     >
       <NavBar
-        display={context !== undefined? context.display : null}
+        display='mobile'
         logo={pageData.siteID.logo}
         logoClick={null}
         menuLinks={menuLinks}
