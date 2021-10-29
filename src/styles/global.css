@@ -27,6 +27,21 @@ body{
     font-family: OpenSansLight;
 }
 
+/* Safari */
+:-webkit-full-screen {
+    @apply text-red-600;
+  }
+  
+  /* IE11 */
+  :-ms-fullscreen {
+    @apply text-red-600;
+  }
+  
+  /* Standard syntax */
+  :fullscreen {
+    @apply text-red-600;
+  }
+
 h1,h2{
     font-family: Staatliches;
 }
