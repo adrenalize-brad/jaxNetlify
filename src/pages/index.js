@@ -16,7 +16,10 @@ const Index = () => {
 
   const context = useContext(Context);
 
-  let browserWindow = context.browserWindow;
+  let browserWindow;
+  if(context !== undefined){
+    browserWindow = context.browserWindow;
+  };
 
   const pageData = useStaticQuery(graphql`
     query {
@@ -98,7 +101,6 @@ const Index = () => {
     ];
 
     let windowHeight = context.browserHeight;
-    console.log(windowHeight)
   
     const [ displayHeight, setDisplayHeight ] = useState(0)
     const [ displayTop, setDisplayTop ] = useState(0)
