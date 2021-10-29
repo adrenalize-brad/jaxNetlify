@@ -32,7 +32,6 @@ module.exports = {
         }
       }
     },
-    `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
