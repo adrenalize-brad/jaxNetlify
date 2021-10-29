@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import { window, document } from 'browser-monads';
 
 const Menu = () => {
 
@@ -124,15 +125,20 @@ const Menu = () => {
         )
     }
 
-    let menuWrapperHeight;
-    let menuWrapperTop;
-    if(document.getElementById("menu-header") !== null){
-        menuWrapperHeight =
+    const [ menuWrapperHeight, setMenuWrapperHeight ] = useState(0)
+    const [ menuWrapperTop, setMenuWrapperTop ] = useState(0)
+
+    useEffect(() => {
+      if(document.getElementById("menu-header") !== null){
+        setMenuWrapperHeight(
             document.getElementById("display").offsetHeight - 
-            document.getElementById("menu-header").offsetHeight;
-        menuWrapperTop = 
-            document.getElementById('menu-header').offsetHeight;
+            document.getElementById("menu-header").offsetHeight
+        );
+        setMenuWrapperTop(
+            document.getElementById('menu-header').offsetHeight
+        );
     };
+    }, [ window.location.hash ])
 
     useEffect(() => {
       if(menuSelected === 'Food'){

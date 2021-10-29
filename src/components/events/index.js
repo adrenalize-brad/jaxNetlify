@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { FaRegClock, FaMusic } from 'react-icons/fa'
+import { document } from 'browser-monads';
 
 const Events = () => {
 
@@ -108,16 +109,22 @@ const Events = () => {
       const [ eventSelected, setEventSelected ] = useState('Bands')
       const [ daySelected, setDaySelected ] = useState(day);
 
-      let eventsWrapperHeight;
-      let eventsWrapperTop;
-      if(document.getElementById("eventsHeader") !== null){
-          eventsWrapperHeight =
-              document.getElementById("display").offsetHeight - 
-              document.getElementById("eventsHeader").offsetHeight
-              -20;
-          eventsWrapperTop = 
-              document.getElementById('eventsHeader').offsetHeight + 20;
-      };
+      const [ eventsWrapperHeight, setEventsWrapperHeight ] = useState(0);
+      const [ eventsWrapperTop, setEventsWrapperTop ] = useState(0);
+
+      useEffect(() => {
+        if(document.getElementById("eventsHeader") !== null){
+          setEventsWrapperHeight(
+                document.getElementById("display").offsetHeight - 
+                document.getElementById("eventsHeader").offsetHeight
+                -20
+          );
+            setEventsWrapperTop(
+                document.getElementById('eventsHeader').offsetHeight + 20
+            );
+        };
+      }, [ window.location.hash ])
+      
     return (
       <div className="pt-2">
         <div id="eventsHeader" className="flex flex-row items-center px-4">

@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
-import { useWindowHeight } from "../hooks"
+import { setHash, useWindowHeight } from "../hooks"
 import { Context } from '../components/context'
 import { PageWrapper } from '../components/layout'
-import { Switch, Route, useHistory } from 'react-router-dom'
+import { window, document } from 'browser-monads';
 import { NavBar } from '../components/nav'
 import { IoFastFoodSharp, IoCalendar, IoCartSharp, IoStar, IoChatboxEllipses } from 'react-icons/io5'
 import { FaFacebook, FaInstagram, FaTripadvisor } from 'react-icons/fa'
@@ -17,12 +17,6 @@ import Contact from '../components/contact'
 const Index = () => {
 
   const context = useContext(Context);
-
-  const history = useHistory();
-
-  function redirectHome() {
-    history.push("/");
-  }
 
   const pageData = useStaticQuery(graphql`
     query {
@@ -47,31 +41,31 @@ const Index = () => {
   const menuLinks = [
       {
         name: 'Menu',
-        slug: 'menu',
+        onClick: () => setHash('#menu'),
         icon: <IoFastFoodSharp className={`text-4xl ${page === '#menu' ? 'menu-link-selected-icon' : null}`} />,
         textClass: `${page === '#menu' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Events',
-        slug: 'events',
+        onClick: () => setHash('#events'),
         icon: <IoCalendar className={`text-4xl ${page === '#events' ? 'menu-link-selected transform scale-90' : null}`} />,
         textClass: `${page === '#events' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Shop',
-        slug: 'shop',
+        onClick: () => setHash('#shop'),
         icon: <IoCartSharp className={`text-4xl transform -translate-x-1 ${page === '#shop' ? 'menu-link-selected' : null}`} />,
         textClass: `${page === '#shop' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'VIP',
-        slug: 'vip',
+        onClick: () => setHash('#vip'),
         icon: <IoStar className={`text-4xl ${page === '#vip' ? 'menu-link-selected' : null}`} />,
         textClass: `${page === '#vip' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Contact',
-        slug: 'contact',
+        onClick: () => setHash('#contact'),
         icon: <IoChatboxEllipses className={`text-4xl ${page === '#contact' ? 'menu-link-selected' : null}`} />,
         textClass: `${page === '#contact' ? 'menu-link-selected-text' : null}`
       }
@@ -118,20 +112,25 @@ const Index = () => {
       <NavBar
         display={context.display}
         logo={pageData.siteID.logo}
-        logoClick={() => redirectHome()}
+        logoClick={null}
         menuLinks={menuLinks}
         socialLinks={socialLinks}
       />
 
       <div id="display" className="fixed left-0 w-full z-10 bg-black bg-opacity-60" style={{top: displayTop, height: displayHeight}}>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/menu" exact component={Menu}/>
-          <Route path="/events" exact component={Events}/>
-          <Route path="/shop" exact component={Shop}/>
-          <Route path="/vip" exact component={Vip}/>
-          <Route path="/contact" exact component={Contact}/>
-        </Switch>
+        {window.location.hash === '#menu' ?
+          <Menu/>
+        : window.location.hash === '#events' ?
+          <Events/>
+        : window.location.hash === '#shop' ?
+          <Shop/>
+        : window.location.hash === '#vip' ?
+          <Vip/>
+        : window.location.hash === '#contact' ?
+          <Contact/>
+        :
+          <Home/>
+        }
       </div>
 
 

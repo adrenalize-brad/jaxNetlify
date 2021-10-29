@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
+import { window } from 'browser-monads';
 
 const useWindowWidth = () => {
     const [ width, setWidth ] = useState(0)    
@@ -26,4 +27,9 @@ const useWindowHeight = () => {
     return height;
 };
 
-export { useWindowHeight, useWindowWidth }
+const setHash = (slug) => {
+    console.log(slug);
+    window.location.hash = `${slug}`;
+}
+
+export { useWindowHeight, useWindowWidth, setHash }

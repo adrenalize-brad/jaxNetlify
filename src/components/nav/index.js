@@ -1,13 +1,12 @@
 import React from 'react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { Link } from 'react-router-dom'
 
 const NavLink = ({ display, name, icon, onClick, textClass }) => {
     return(
         <button
             onClick={onClick}
             aria-label={name}
-            className={`flex justify-center items-center 
+            className={`flex justify-center items-center mx-auto lg:mx-5
                 ${display === 'mobile' ? 'flex-col' : 'flex-row'}`}
         >
             { display === 'mobile' ? 
@@ -80,15 +79,14 @@ const NavBar = ({ display, menuLinks, socialLinks, logo, logoClick }) => {
             >
                 { menuLinks.map((link, index) => {
                     return(
-                        <Link to={link.slug} className="mx-auto lg:mx-5">
                             <NavLink
                                 key={index}
+                                onClick={link.onClick}
                                 display={display}
                                 icon={link.icon}
                                 name={link.name}
                                 textClass={link.textClass}
                             />
-                        </Link>
                     )
                 })}
             </div>

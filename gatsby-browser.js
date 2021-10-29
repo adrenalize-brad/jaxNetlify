@@ -2,7 +2,6 @@ import React from 'react'
 import './src/styles/global.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ContextProvider } from './src/components/context';
-import { HashRouter as Router } from 'react-router-dom'
 
 const onClientEntry = () => {
   if (!(`IntersectionObserver` in window)) {
@@ -23,11 +22,9 @@ const onServiceWorkerUpdateReady = () => {
 
   const wrapRootElement = ({ element }) => {
     return(
-        <Router hashType='noslash'>
           <ContextProvider>
             {element}
           </ContextProvider>
-        </Router>
       )
     };
 
