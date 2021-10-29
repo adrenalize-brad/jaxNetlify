@@ -27,9 +27,4 @@ const useWindowHeight = () => {
     return height;
 };
 
-const setHash = (slug) => {
-    console.log(slug);
-    window.location.hash = `${slug}`;
-}
-
-export { useWindowHeight, useWindowWidth, setHash }
+export { useWindowHeight, useWindowWidth }

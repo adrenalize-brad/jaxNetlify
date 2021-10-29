@@ -1,6 +1,6 @@
-import React, { useContext } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
-import { setHash, useWindowHeight } from "../hooks"
+import { useWindowHeight } from "../hooks"
 import { Context } from '../components/context'
 import { PageWrapper } from '../components/layout'
 import { window, document } from 'browser-monads';
@@ -36,38 +36,45 @@ const Index = () => {
     }
   `);
 
-  let page = window.location.hash
+  const [ page, setPage ] = useState('home');
+
+  useEffect(()=> {
+    if(window.location.hash === '#menu'){
+      setPage('menu');
+      window.history.pushState(`Jax Bucerias`, `Jax Bucerias Menu`, `/`);
+    }
+  }, [])
 
   const menuLinks = [
       {
         name: 'Menu',
-        onClick: () => setHash('#menu'),
-        icon: <IoFastFoodSharp className={`text-4xl ${page === '#menu' ? 'menu-link-selected-icon' : null}`} />,
-        textClass: `${page === '#menu' ? 'menu-link-selected-text' : null}`
+        onClick: () => setPage('menu'),
+        icon: <IoFastFoodSharp className={`text-4xl ${page === 'menu' ? 'menu-link-selected-icon' : null}`} />,
+        textClass: `${page === 'menu' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Events',
-        onClick: () => setHash('#events'),
-        icon: <IoCalendar className={`text-4xl ${page === '#events' ? 'menu-link-selected transform scale-90' : null}`} />,
-        textClass: `${page === '#events' ? 'menu-link-selected-text' : null}`
+        onClick: () => setPage('events'),
+        icon: <IoCalendar className={`text-4xl ${page === 'events' ? 'menu-link-selected transform scale-90' : null}`} />,
+        textClass: `${page === 'events' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Shop',
-        onClick: () => setHash('#shop'),
-        icon: <IoCartSharp className={`text-4xl transform -translate-x-1 ${page === '#shop' ? 'menu-link-selected' : null}`} />,
-        textClass: `${page === '#shop' ? 'menu-link-selected-text' : null}`
+        onClick: () => setPage('shop'),
+        icon: <IoCartSharp className={`text-4xl transform -translate-x-1 ${page === 'shop' ? 'menu-link-selected' : null}`} />,
+        textClass: `${page === 'shop' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'VIP',
-        onClick: () => setHash('#vip'),
-        icon: <IoStar className={`text-4xl ${page === '#vip' ? 'menu-link-selected' : null}`} />,
-        textClass: `${page === '#vip' ? 'menu-link-selected-text' : null}`
+        onClick: () => setPage('vip'),
+        icon: <IoStar className={`text-4xl ${page === 'vip' ? 'menu-link-selected' : null}`} />,
+        textClass: `${page === 'vip' ? 'menu-link-selected-text' : null}`
       },
       {
         name: 'Contact',
-        onClick: () => setHash('#contact'),
-        icon: <IoChatboxEllipses className={`text-4xl ${page === '#contact' ? 'menu-link-selected' : null}`} />,
-        textClass: `${page === '#contact' ? 'menu-link-selected-text' : null}`
+        onClick: () => setPage('contact'),
+        icon: <IoChatboxEllipses className={`text-4xl ${page === 'contact' ? 'menu-link-selected' : null}`} />,
+        textClass: `${page === 'contact' ? 'menu-link-selected-text' : null}`
       }
     ];
 
@@ -89,19 +96,23 @@ const Index = () => {
       },
     ];
 
-    let windowHeight = useWindowHeight();
+    let windowHeight = useWindowHeight()
+  
+    const [ displayHeight, setDisplayHeight ] = useState(0)
+    const [ displayTop, setDisplayTop ] = useState(0)
 
-    let displayHeight;
-    let displayTop;
-    if(document.getElementById("mobileHeader") !== null){
-        displayHeight =
+    useEffect(() => {
+      if(document.getElementById("mobileHeader") !== null){
+        setDisplayHeight(
             windowHeight -
             document.getElementById("mobileHeader").offsetHeight - 
-            document.getElementById("navbar").offsetHeight;
-        displayTop = 
-            document.getElementById('mobileHeader').offsetHeight;
+            document.getElementById("navbar").offsetHeight
+        );
+        setDisplayTop(
+            document.getElementById('mobileHeader').offsetHeight
+        );
     };
-
+    }, [ windowHeight ])
 
   return(
 
@@ -118,15 +129,15 @@ const Index = () => {
       />
 
       <div id="display" className="fixed left-0 w-full z-10 bg-black bg-opacity-60" style={{top: displayTop, height: displayHeight}}>
-        {window.location.hash === '#menu' ?
+        {page === 'menu' ?
           <Menu/>
-        : window.location.hash === '#events' ?
+        : page === 'events' ?
           <Events/>
-        : window.location.hash === '#shop' ?
+        : page === 'shop' ?
           <Shop/>
-        : window.location.hash === '#vip' ?
+        : page === 'vip' ?
           <Vip/>
-        : window.location.hash === '#contact' ?
+        : page === 'contact' ?
           <Contact/>
         :
           <Home/>

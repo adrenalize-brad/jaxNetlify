@@ -137,8 +137,8 @@ const Menu = () => {
         setMenuWrapperTop(
             document.getElementById('menu-header').offsetHeight
         );
-    };
-    }, [ window.location.hash ])
+      };
+    })
 
     useEffect(() => {
       if(menuSelected === 'Food'){
