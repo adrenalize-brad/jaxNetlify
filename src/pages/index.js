@@ -16,13 +16,6 @@ import Contact from '../components/contact'
 
 const Index = () => {
 
-  useEffect(() => {
-    if(document.getElementById("page-wrapper") !== null){
-      var element = document.getElementById("page-wrapper");
-      element.scrollTop = element.scrollHeight;
-    }
-  })
-
   const context = useContext(Context);
 
   const pageData = useStaticQuery(graphql`
@@ -31,6 +24,9 @@ const Index = () => {
         title
         description
         logo {
+          gatsbyImageData(quality: 100)
+        }
+        mobileLogo {
           gatsbyImageData(quality: 100)
         }
         backgroundImage {
@@ -119,7 +115,7 @@ const Index = () => {
             document.getElementById('mobileHeader').offsetHeight
         );
     };
-    }, [ windowHeight ])
+    })
 
   return(
 
@@ -129,7 +125,7 @@ const Index = () => {
     >
       <NavBar
         display={context.display}
-        logo={pageData.siteID.logo}
+        logo={context.display === 'mobile' ? pageData.siteID.mobileLogo : pageData.siteID.logo}
         logoClick={() => setPage('home')}
         menuLinks={menuLinks}
         socialLinks={socialLinks}

@@ -19,9 +19,9 @@ module.exports = {
       options: {
         name: 'Jax Bucerias - Home Of The Best Live Music In The Bay!',
         short_name: `Jax Bucerias`,
-        background_color: `#ffffff`,
+        background_color: `#000000`,
         lang: `en`,
-        theme_color: `#ffffff`,
+        theme_color: `#000000`,
         start_url: `/`,
         display: `standalone`,
         cache_busting_mode: 'none',
