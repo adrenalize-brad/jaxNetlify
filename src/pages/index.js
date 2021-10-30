@@ -16,6 +16,13 @@ import Contact from '../components/contact'
 
 const Index = () => {
 
+  useEffect(() => {
+    if(document.getElementById("page-wrapper") !== null){
+      var element = document.getElementById("page-wrapper");
+      element.scrollTop = element.scrollHeight;
+    }
+  })
+
   const context = useContext(Context);
 
   const pageData = useStaticQuery(graphql`
@@ -44,10 +51,6 @@ const Index = () => {
       window.history.pushState('home','Home','/')
     }
   }, [])
-
-  useEffect(()=> {
-      window.scrollTo(0, 1);
-  }, [ page ])
 
   const menuLinks = [
       {

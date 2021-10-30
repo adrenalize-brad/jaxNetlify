@@ -7,6 +7,7 @@ const PageWrapper = ({ bgImage, bgColor, children }) => {
 
     return(
         <div
+            id="page-wrapper"
             className="fixed top-0 left-0 w-full h-full"
             style={{backgroundColor: bgColor.hex }} 
         >
